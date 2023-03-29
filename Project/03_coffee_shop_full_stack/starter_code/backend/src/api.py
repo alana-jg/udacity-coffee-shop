@@ -40,7 +40,7 @@ def get_drinks():
         if len(drinks) == 0:
             abort (404)
         
-        formatted_drinks = list(map(Drink.short, Drink.query.all()))
+        formatted_drinks = [drink.short() for drink in drinks]
 
         return jsonify({
             "success" : True,
@@ -65,7 +65,7 @@ def get_drinks_detail(jwt):
         if len(drinks) == 0:
             abort (404)
 
-        formatted_drinks = list(map(Drink.long, Drink.query.all()))
+        formatted_drinks = [drink.long() for drink in drinks]
         print (formatted_drinks)
         return jsonify ({
             "success" : True,
@@ -105,7 +105,7 @@ def create_drink(jwt):
 
         return jsonify({
             "success" : True,
-            "drink" : drink.long()
+            "drink" : [drink.long()]
         }, 200)
     except:
         abort (500)
